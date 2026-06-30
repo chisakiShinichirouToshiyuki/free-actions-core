@@ -8,12 +8,12 @@ export default defineConfig({
       provider: 'v8',
       include: ['src/**/*.ts'],
       // index.ts is a re-export barrel with no logic to cover.
-      exclude: ['src/**/*.test.ts', 'src/index.ts'],
+      exclude: ['src/**/*.test.ts', 'src/**/*.test-d.ts', 'src/index.ts'],
       thresholds: {
-        statements: 95,
-        branches: 90,
-        functions: 95,
-        lines: 95,
+        statements: 100,
+        branches: 100,
+        functions: 100,
+        lines: 100,
       },
     },
   },

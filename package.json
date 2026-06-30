@@ -33,7 +33,10 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "ci": "bun run check && bun run typecheck && bun run test:coverage && bun run build",
+    "test:mutation": "stryker run",
+    "type-coverage": "type-coverage --strict --at-least 95 --ignore-files \"src/**/*.test.ts\" --ignore-files \"src/**/*.test-d.ts\"",
+    "attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
+    "ci": "bun run check && bun run typecheck && bun run type-coverage && bun run test:coverage && bun run build && bun run attw",
     "dev": "tsc -w -p tsconfig.json"
   },
   "keywords": [
@@ -62,9 +65,14 @@
     }
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.4",
     "@biomejs/biome": "^2",
+    "@stryker-mutator/core": "^9.6.1",
+    "@stryker-mutator/vitest-runner": "^9.6.1",
     "@types/node": "^24",
     "@vitest/coverage-v8": "^3",
+    "fast-check": "^4.8.0",
+    "type-coverage": "^2.29.7",
     "typescript": "^5.9.3",
     "vitest": "^3"
   },

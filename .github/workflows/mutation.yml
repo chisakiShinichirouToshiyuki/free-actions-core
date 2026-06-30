@@ -1,0 +1,29 @@
+# Mutation testing (Stryker) — informational quality signal, NOT a required
+# merge gate. Logic files (dispatch/handlers/types) score well; the
+# declarative OpenAPI/instruction prose in openapi.ts/instructions.ts naturally
+# survives cosmetic-string mutants, which are low-value to chase. The break
+# threshold (40) only fires if the test suite genuinely collapses.
+name: Mutation
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stryker:
+    name: Stryker mutation testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.10'
+
+      - run: bun install --frozen-lockfile
+
+      - name: Stryker run
+        run: bun run test:mutation

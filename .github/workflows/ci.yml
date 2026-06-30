@@ -25,11 +25,17 @@ jobs:
       - name: Lint (Biome, warnings fail)
         run: bun x biome ci src/ --error-on-warnings
 
-      - name: Typecheck (strict, src + tests)
+      - name: Typecheck (strict, src + type-level tests)
         run: bun run typecheck
 
-      - name: Test + coverage thresholds
+      - name: Type coverage (regression floor; zod sets the residual)
+        run: bun run type-coverage
+
+      - name: Test + property tests + coverage gate (100%)
         run: bun run test:coverage
 
       - name: Build
         run: bun run build
+
+      - name: Published-types check (attw)
+        run: bun run attw

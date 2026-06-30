@@ -1,0 +1,26 @@
+# https://docs.coderabbit.ai/guides/configure-coderabbit
+language: en-US
+early_access: false
+reviews:
+  profile: assertive
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+  path_instructions:
+    - path: 'src/**/*.ts'
+      instructions: >-
+        This is a vendor-neutral MCP -> OpenAPI Actions bridge. Validate that
+        external/wire input (the /call body, tools/list responses) is parsed
+        with zod at the trust boundary, that no shared credentials or upstream
+        URLs are hard-coded (they must be injected via config), and that
+        destructive tools can be excluded. Flag any use of `any`,
+        non-null assertions, or console usage.
+chat:
+  auto_reply: true
